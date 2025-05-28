@@ -1,0 +1,10 @@
+{% extends "base.html" %}
+
+{% block content %}
+  <h2>¿Eliminar habitación {{ object.numero }}?</h2>
+  <form method="post">
+    {% csrf_token %}
+    <button type="submit">Sí, borrar</button>
+    <a href="{% url 'habitacion-list' %}">No, volver</a>
+  </form>
+{% endblock %}

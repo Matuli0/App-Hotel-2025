@@ -1,0 +1,27 @@
+{% extends "base.html" %}
+{% block content %}
+  <h1>Listado de Habitaciones</h1>
+  <a href="{% url 'habitacion-create' %}">+ Nueva Habitación</a>
+  <table>
+    <thead>
+      <tr>
+        <th>Número</th><th>Capacidad</th><th>Orientación</th><th>Acciones</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for habitacion in object_list %}
+      <tr>
+        <td>{{ habitacion.numero }}</td>
+        <td>{{ habitacion.capacidad }}</td>
+        <td>{{ habitacion.orientacion }}</td>
+        <td>
+          <a href="{% url 'habitacion-edit' habitacion.pk %}">Editar</a> |
+          <a href="{% url 'habitacion-delete' habitacion.pk %}">Borrar</a>
+        </td>
+      </tr>
+      {% empty %}
+      <tr><td colspan="4">No hay habitaciones registradas.</td></tr>
+      {% endfor %}
+    </tbody>
+  </table>
+{% endblock %}
