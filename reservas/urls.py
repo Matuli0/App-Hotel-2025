@@ -3,7 +3,13 @@ from .views import (
     HabitacionListView, HabitacionCreateView,
     HabitacionUpdateView, HabitacionDeleteView
 )
-
+from .views import PasajeroListView
+from .views import PasajeroCreateView
+from .views import PasajeroUpdateView
+from .views import PasajeroDeleteView
+from .views import ReservaListView
+from .views import ReservaCreateView
+from .views import ReservaDeleteView
 urlpatterns = [
     path("habitaciones/",                HabitacionListView.as_view(),   name="habitacion-list"),
     path("habitaciones/nueva/",          HabitacionCreateView.as_view(), name="habitacion-create"),
