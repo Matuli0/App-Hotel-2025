@@ -1,6 +1,10 @@
-from django.urls       import reverse_lazy
+from django.urls import reverse_lazy
 from django.views.generic import ListView, CreateView, UpdateView, DeleteView
-from .models           import Habitacion, Pasajero, Reserva
+from .models import Habitacion, Pasajero, Reserva
+from django.contrib.auth.forms import AuthenticationForm
+from django.contrib.auth import authenticate, login
+from django.contrib.auth.decorators import login_required
+from django.shortcuts import render, redirect
 
 # — Habitaciones
 class HabitacionListView(ListView):
@@ -63,3 +67,28 @@ class ReservaDeleteView(DeleteView):
     model = Reserva
     success_url = reverse_lazy("reserva-list")
     template_name = "reservas/reserva_confirm_delete.html"
+
+
+# Vista para el login del administrador
+def admin_login(request):
+    if request.method == 'POST':
+        form = AuthenticationForm(data=request.POST)
+        if form.is_valid():
+            username = form.cleaned_data.get('username')
+            password = form.cleaned_data.get('password')
+            user = authenticate(request, username=username, password=password)
+            if user is not None and user.is_admin:  # Verifica si es un administrador
+                login(request, user)
+                return redirect('home')  # Redirigir al inicio
+            else:
+                form.add_error(None, 'Usuario no autorizado.')
+    else:
+        form = AuthenticationForm()
+
+    return render(request, 'admin/login.html', {'form': form})
+
+
+# Vista principal protegida por login
+@login_required
+def home(request):
+    return render(request, 'home.html')  # Página de inicio después de iniciar sesión

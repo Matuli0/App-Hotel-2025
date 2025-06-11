@@ -1,6 +1,7 @@
 from django.db import models
 from django.conf import settings
 from django.utils import timezone
+from django.contrib.auth.models import AbstractUser
 
 class Habitacion(models.Model):
     numero      = models.CharField("Número", max_length=10, unique=True)
@@ -31,3 +32,18 @@ class Reserva(models.Model):
 
     def __str__(self):
         return f"{self.pasajero} → Hab {self.habitacion.numero}"
+
+class CustomUser(AbstractUser):
+    is_admin = models.BooleanField(default=False)  # Marca a los administradores
+    
+    # Proporcionamos un `related_name` para evitar el conflicto
+    groups = models.ManyToManyField(
+        'auth.Group',
+        related_name='customuser_set',  # Cambiar el related_name
+        blank=True
+    )
+    user_permissions = models.ManyToManyField(
+        'auth.Permission',
+        related_name='customuser_permissions_set',  # Cambiar el related_name
+        blank=True
+    )
