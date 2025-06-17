@@ -2,16 +2,16 @@ from django.urls import path
 from .views import (
     HabitacionListView, HabitacionCreateView, HabitacionUpdateView, HabitacionDeleteView,
     PasajeroListView, PasajeroCreateView, PasajeroUpdateView, PasajeroDeleteView,
-    ReservaListView, ReservaCreateView, ReservaDeleteView, home, admin_login
+    ReservaListView, ReservaCreateView, ReservaDeleteView, home
 )
-from django.contrib.auth.views import LoginView  # Importar la vista de login de Django
+from django.contrib.auth.views import LoginView  # Usando la vista de login predeterminada de Django
 
 urlpatterns = [
-    # Redirige a la vista de login si no está autenticado
-    path('admin/login/', LoginView.as_view(template_name='admin/login.html'), name='admin_login'),  # Usando la vista de login predeterminada de Django
+    # Ruta de login (utilizando la vista predeterminada de Django)
+    path('admin/login/', LoginView.as_view(template_name='admin/login.html'), name='admin_login'),
 
     # Ruta principal (home), protegida por login
-    path('', home, name='home'),  # Redirige a home después de login (cambiar a login si es necesario)
+    path('', home, name='home'),  # Si el usuario no está autenticado, será redirigido al login
 
     # Habitaciones
     path("habitaciones/", HabitacionListView.as_view(), name="habitacion-list"),

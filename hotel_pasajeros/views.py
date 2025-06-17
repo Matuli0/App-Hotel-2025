@@ -1,31 +1,29 @@
-from django.urls import reverse_lazy
+# hotel_pasajeros/views.py
+from django.shortcuts import render
+from django.contrib.auth.decorators import login_required
 from django.views.generic import ListView, CreateView, UpdateView, DeleteView
 from .models import Habitacion, Pasajero, Reserva
-from django.contrib.auth.forms import AuthenticationForm
-from django.contrib.auth import authenticate, login
-from django.contrib.auth.decorators import login_required
-from django.shortcuts import render, redirect
 
 # — Habitaciones
 class HabitacionListView(ListView):
     model = Habitacion
-    template_name = "reservas/habitacion_list.html"
+    template_name = "reservas/habitacion_list.html"  # Asegúrate de que esta plantilla exista
 
 class HabitacionCreateView(CreateView):
     model = Habitacion
     fields = ["numero", "capacidad", "orientacion"]
-    success_url = reverse_lazy("habitacion-list")
+    success_url = '/habitaciones/'  # Redirige después de crear
     template_name = "reservas/habitacion_form.html"
 
 class HabitacionUpdateView(UpdateView):
     model = Habitacion
     fields = ["capacidad", "orientacion"]
-    success_url = reverse_lazy("habitacion-list")
+    success_url = '/habitaciones/'  # Redirige después de actualizar
     template_name = "reservas/habitacion_form.html"
 
 class HabitacionDeleteView(DeleteView):
     model = Habitacion
-    success_url = reverse_lazy("habitacion-list")
+    success_url = '/habitaciones/'  # Redirige después de eliminar
     template_name = "reservas/habitacion_confirm_delete.html"
 
 # — Pasajeros
@@ -36,18 +34,18 @@ class PasajeroListView(ListView):
 class PasajeroCreateView(CreateView):
     model = Pasajero
     fields = ["nombre", "rut"]
-    success_url = reverse_lazy("pasajero-list")
+    success_url = '/pasajeros/'  # Redirige después de crear
     template_name = "reservas/pasajero_form.html"
 
 class PasajeroUpdateView(UpdateView):
     model = Pasajero
     fields = ["nombre", "rut"]
-    success_url = reverse_lazy("pasajero-list")
+    success_url = '/pasajeros/'  # Redirige después de actualizar
     template_name = "reservas/pasajero_form.html"
 
 class PasajeroDeleteView(DeleteView):
     model = Pasajero
-    success_url = reverse_lazy("pasajero-list")
+    success_url = '/pasajeros/'  # Redirige después de eliminar
     template_name = "reservas/pasajero_confirm_delete.html"
 
 # — Reservas
@@ -58,34 +56,15 @@ class ReservaListView(ListView):
 class ReservaCreateView(CreateView):
     model = Reserva
     fields = ["habitacion", "pasajero"]
-    success_url = reverse_lazy("reserva-list")
+    success_url = '/reservas/'  # Redirige después de crear
     template_name = "reservas/reserva_form.html"
 
 class ReservaDeleteView(DeleteView):
     model = Reserva
-    success_url = reverse_lazy("reserva-list")
+    success_url = '/reservas/'  # Redirige después de eliminar
     template_name = "reservas/reserva_confirm_delete.html"
 
 # Vista principal protegida por login
 @login_required
 def home(request):
     return render(request, 'home.html')  # Página de inicio después de iniciar sesión
-
-# Vista para el login (Usa la vista de login predeterminada de Django)
-def admin_login(request):
-    # Esto lo maneja Django automáticamente si usas LoginView
-    if request.method == 'POST':
-        form = AuthenticationForm(data=request.POST)
-        if form.is_valid():
-            username = form.cleaned_data.get('username')
-            password = form.cleaned_data.get('password')
-            user = authenticate(request, username=username, password=password)
-            if user is not None:
-                login(request, user)
-                return redirect('home')  # Redirigir al inicio después de login exitoso
-            else:
-                form.add_error(None, 'Usuario o contraseña incorrectos')
-    else:
-        form = AuthenticationForm()
-
-    return render(request, 'admin/login.html', {'form': form})
