@@ -1,27 +1,42 @@
 {% extends "base.html" %}
+
 {% block content %}
-  <h1>Listado de Habitaciones</h1>
-  <a href="{% url 'habitacion-create' %}">+ Nueva Habitación</a>
-  <table>
-    <thead>
-      <tr>
-        <th>Número</th><th>Capacidad</th><th>Orientación</th><th>Acciones</th>
-      </tr>
-    </thead>
-    <tbody>
-      {% for habitacion in object_list %}
-      <tr>
-        <td>{{ habitacion.numero }}</td>
-        <td>{{ habitacion.capacidad }}</td>
-        <td>{{ habitacion.orientacion }}</td>
-        <td>
-          <a href="{% url 'habitacion-edit' habitacion.pk %}">Editar</a> |
-          <a href="{% url 'habitacion-delete' habitacion.pk %}">Borrar</a>
-        </td>
-      </tr>
-      {% empty %}
-      <tr><td colspan="4">No hay habitaciones registradas.</td></tr>
-      {% endfor %}
-    </tbody>
-  </table>
+  <div class="container mt-4">
+    <h1 class="text-center mb-4">Listado de Habitaciones</h1>
+
+    <!-- Botón para agregar nueva habitación -->
+    <div class="text-end mb-3">
+      <a href="{% url 'habitacion-create' %}" class="btn btn-primary">+ Nueva Habitación</a>
+    </div>
+
+    <!-- Tabla de Habitaciones -->
+    <table class="table table-striped table-bordered">
+      <thead class="table-dark">
+        <tr>
+          <th>Número</th>
+          <th>Capacidad</th>
+          <th>Orientación</th>
+          <th>Acciones</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for habitacion in object_list %}
+        <tr>
+          <td>{{ habitacion.numero }}</td>
+          <td>{{ habitacion.capacidad }}</td>
+          <td>{{ habitacion.orientacion }}</td>
+          <td>
+            <!-- Enlaces de acción (Editar y Borrar) -->
+            <a href="{% url 'habitacion-edit' habitacion.pk %}" class="btn btn-warning btn-sm">Editar</a>
+            <a href="{% url 'habitacion-delete' habitacion.pk %}" class="btn btn-danger btn-sm">Borrar</a>
+          </td>
+        </tr>
+        {% empty %}
+        <tr>
+          <td colspan="4" class="text-center">No hay habitaciones registradas.</td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
 {% endblock %}
