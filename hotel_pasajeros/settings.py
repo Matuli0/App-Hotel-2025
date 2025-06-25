@@ -81,11 +81,11 @@ DATABASES = {
         'ENGINE': 'django.db.backends.mysql',
         'NAME': 'hoteldb',
         'USER': 'root',
-        'PASSWORD': '',  # Asegúrate de tener la contraseña correcta, si es necesaria
+        'PASSWORD': '',  
         'HOST': 'localhost',
         'PORT': '3306',
         'OPTIONS': {
-            'ssl': {'disabled': True},  # Deshabilitar SSL
+            'ssl': {'disabled': True},  
         },
     }
 }
