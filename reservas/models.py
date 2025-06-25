@@ -48,14 +48,14 @@ class CustomUser(AbstractUser):
     # Relacionado con los grupos (para evitar conflicto)
     groups = models.ManyToManyField(
         'auth.Group',
-        related_name='customuser_set',  # Cambiado el `related_name`
+        related_name='customuser_set',  
         blank=True
     )
 
     # Relacionado con los permisos (para evitar conflicto)
     user_permissions = models.ManyToManyField(
         'auth.Permission',
-        related_name='customuser_permissions_set',  # Cambiado el `related_name`
+        related_name='customuser_permissions_set',  
         blank=True
     )
 
