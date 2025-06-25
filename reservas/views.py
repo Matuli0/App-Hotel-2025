@@ -1,10 +1,12 @@
 from django.urls import reverse_lazy
 from django.views.generic import ListView, CreateView, UpdateView, DeleteView
 from .models import Habitacion, Pasajero, Reserva
+from .forms import ReservaForm
 from django.contrib.auth.forms import AuthenticationForm
 from django.contrib.auth import authenticate, login
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import render, redirect
+from django.contrib.auth.decorators import user_passes_test
 
 # — Habitaciones
 class HabitacionListView(ListView):
@@ -57,9 +59,9 @@ class ReservaListView(ListView):
 
 class ReservaCreateView(CreateView):
     model = Reserva
-    fields = ["habitacion", "pasajero"]
-    success_url = reverse_lazy("reserva-list")
+    form_class = ReservaForm  # Usa el formulario que hemos creado
     template_name = "reservas/reserva_form.html"
+    success_url = reverse_lazy("reserva-list")  # Redirige a la lista de reservas tras crearla
 
 class ReservaDeleteView(DeleteView):
     model = Reserva
@@ -73,7 +75,6 @@ def home(request):
 
 # Vista para el login (Usa la vista de login predeterminada de Django)
 def admin_login(request):
-    # Esto lo maneja Django automáticamente si usas LoginView
     if request.method == 'POST':
         form = AuthenticationForm(data=request.POST)
         if form.is_valid():

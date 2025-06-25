@@ -1,37 +1,22 @@
 {% extends 'base.html' %}
 
+{% block title %}Crear Nuevo Pasajero{% endblock %}
+
 {% block content %}
-  <div class="container mt-4">
-    <h2>{% if object %}Editar{% else %}Nueva{% endif %} Habitación</h2>
-    
-    <!-- Formulario de Habitaciones -->
-    <form method="post">
-      {% csrf_token %}
-      <div class="form-group mb-3">
-        <label for="numero">Número de Habitación</label>
-        <input type="text" id="numero" name="numero" class="form-control" value="{{ form.numero.value }}" required>
-      </div>
-
-      <div class="form-group mb-3">
-        <label for="capacidad">Capacidad</label>
-        <input type="number" id="capacidad" name="capacidad" class="form-control" value="{{ form.capacidad.value }}" required>
-      </div>
-
-      <div class="form-group mb-3">
-        <label for="orientacion">Orientación</label>
-        <select id="orientacion" name="orientacion" class="form-control" required>
-          <option value="Norte" {% if form.orientacion.value == 'Norte' %}selected{% endif %}>Norte</option>
-          <option value="Sur" {% if form.orientacion.value == 'Sur' %}selected{% endif %}>Sur</option>
-          <option value="Este" {% if form.orientacion.value == 'Este' %}selected{% endif %}>Este</option>
-          <option value="Oeste" {% if form.orientacion.value == 'Oeste' %}selected{% endif %}>Oeste</option>
-        </select>
-      </div>
-
-      <!-- Botones -->
-      <div class="form-group">
-        <button type="submit" class="btn btn-primary">Guardar</button>
-        <a href="{% url 'habitacion-list' %}" class="btn btn-secondary">Cancelar</a>
-      </div>
-    </form>
-  </div>
+    <div class="container">
+        <h2 class="text-center mb-4">Crear Nuevo Pasajero</h2>
+        
+        <form method="post">
+            {% csrf_token %}
+            <div class="mb-3">
+                <label for="id_nombre" class="form-label">Nombre del Pasajero</label>
+                <input type="text" name="nombre" class="form-control" id="id_nombre" required>
+            </div>
+            <div class="mb-3">
+                <label for="id_rut" class="form-label">RUT del Pasajero</label>
+                <input type="text" name="rut" class="form-control" id="id_rut" required>
+            </div>
+            <button type="submit" class="btn btn-success">Crear Pasajero</button>
+        </form>
+    </div>
 {% endblock %}

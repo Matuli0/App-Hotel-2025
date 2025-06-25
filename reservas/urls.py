@@ -1,8 +1,8 @@
 from django.urls import path
 from .views import (
     HabitacionListView, HabitacionCreateView, HabitacionUpdateView, HabitacionDeleteView,
-    PasajeroListView, PasajeroCreateView, PasajeroUpdateView, PasajeroDeleteView,
-    ReservaListView, ReservaCreateView, ReservaDeleteView, home
+    PasajeroListView, PasajeroCreateView, PasajeroUpdateView,ReservaCreateView, PasajeroDeleteView,
+    ReservaListView, ReservaCreateView, ReservaDeleteView,ReservaListView,ReservaUpdateView, home
 )
 from django.contrib.auth.views import LoginView  # Usando la vista de login predeterminada de Django
 
@@ -29,4 +29,8 @@ urlpatterns = [
     path("reservas/", ReservaListView.as_view(), name="reserva-list"),
     path("reservas/nueva/", ReservaCreateView.as_view(), name="reserva-create"),
     path("reservas/<int:pk>/borrar/", ReservaDeleteView.as_view(), name="reserva-delete"),
+    path('reservas/nueva/', ReservaCreateView.as_view(), name='reserva-create'),
+    path('reservas/', ReservaListView.as_view(), name='reserva-list'),
+    path('reservas/<int:pk>/editar/', ReservaUpdateView.as_view(), name='reserva-edit'),
+    path('reservas/<int:pk>/borrar/', ReservaDeleteView.as_view(), name='reserva-delete'),
 ]
