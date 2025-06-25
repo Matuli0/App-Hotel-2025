@@ -4,20 +4,22 @@ from django.db import migrations, models
 
 
 class Migration(migrations.Migration):
-
-    initial = True
-
     dependencies = [
+        # Reemplaza con la dependencia correcta, si la hay
     ]
 
     operations = [
         migrations.CreateModel(
             name='Habitacion',
             fields=[
-                ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('numero', models.CharField(max_length=10, unique=True, verbose_name='Número')),
-                ('capacidad', models.PositiveIntegerField(verbose_name='Capacidad de pasajeros')),
-                ('orientacion', models.CharField(max_length=50, verbose_name='Orientación')),
+                ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
+                ('numero', models.CharField(max_length=10, unique=True)),
+                ('capacidad', models.PositiveIntegerField()),
+                ('orientacion', models.CharField(max_length=50)),
             ],
+            options={
+                'verbose_name': 'Habitación',
+                'verbose_name_plural': 'Habitaciones',
+            },
         ),
     ]

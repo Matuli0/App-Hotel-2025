@@ -4,12 +4,13 @@ from django.utils import timezone
 from django.contrib.auth.models import AbstractUser
 
 class Habitacion(models.Model):
-    numero      = models.CharField("Número", max_length=10, unique=True)
-    capacidad   = models.PositiveIntegerField("Capacidad de pasajeros")
+    numero = models.CharField("Número", max_length=10, unique=True)
+    capacidad = models.PositiveIntegerField("Capacidad de pasajeros")
     orientacion = models.CharField("Orientación", max_length=50)
 
     def __str__(self):
         return f"Habitación {self.numero} ({self.capacidad} pax)"
+
 
 class Pasajero(models.Model):
     nombre = models.CharField("Nombre", max_length=100)

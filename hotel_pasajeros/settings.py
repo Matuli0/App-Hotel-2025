@@ -11,6 +11,8 @@ https://docs.djangoproject.com/en/5.2/ref/settings/
 """
 
 from pathlib import Path
+import pymysql
+pymysql.install_as_MySQLdb()
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -77,17 +79,16 @@ WSGI_APPLICATION = 'hotel_pasajeros.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'hoteldb',  # Nombre de tu base de datos
-        'USER': 'root',  # Usuario de MySQL
-        'PASSWORD': 'tu_contraseña',  # Contraseña de MySQL
-        'HOST': 'localhost',  # Dirección del servidor
-        'PORT': '3306',  # Puerto MySQL
+        'NAME': 'hoteldb',
+        'USER': 'root',
+        'PASSWORD': '',  # Asegúrate de tener la contraseña correcta, si es necesaria
+        'HOST': 'localhost',
+        'PORT': '3306',
         'OPTIONS': {
-            'ssl': {'ssl_mode': 'DISABLED'},  # Desactiva SSL
+            'ssl': {'disabled': True},  # Deshabilitar SSL
         },
     }
 }
-
 
 
 # Password validation
