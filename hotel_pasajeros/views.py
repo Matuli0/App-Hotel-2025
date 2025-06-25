@@ -7,7 +7,7 @@ from .models import Habitacion, Pasajero, Reserva
 # — Habitaciones
 class HabitacionListView(ListView):
     model = Habitacion
-    template_name = "reservas/habitacion_list.html"  # Asegúrate de que esta plantilla exista
+    template_name = "reservas/habitacion_list.html"  
 
 class HabitacionCreateView(CreateView):
     model = Habitacion
