@@ -76,8 +76,15 @@ WSGI_APPLICATION = 'hotel_pasajeros.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+        'ENGINE': 'django.db.backends.mysql',
+        'NAME': 'hoteldb',  # Nombre de tu base de datos
+        'USER': 'root',  # Usuario de MySQL
+        'PASSWORD': 'tu_contraseña',  # Contraseña de MySQL
+        'HOST': 'localhost',  # Dirección del servidor
+        'PORT': '3306',  # Puerto MySQL
+        'OPTIONS': {
+            'ssl': {'ssl_mode': 'DISABLED'},  # Desactiva SSL
+        },
     }
 }
 
